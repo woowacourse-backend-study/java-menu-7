@@ -37,6 +37,10 @@ public class Coaches {
         }
     }
 
+    public List<Coach> getCoaches() {
+        return coaches;
+    }
+
     @Override
     public String toString() {
         return "Coaches{" +
