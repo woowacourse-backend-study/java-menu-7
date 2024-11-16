@@ -1,21 +1,26 @@
 package menu.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Coaches {
 
     private final List<Coach> coachGroup;
+    private List<String> choicesCategories;
 
     public Coaches(final List<Coach> coachGroup) {
-        validate(coachGroup);
         this.coachGroup = coachGroup;
+        this.choicesCategories = new ArrayList<>();
     }
 
-    private void validate(List<Coach> coachGroup) {
-        if (coachGroup.size() < 2 || coachGroup.size() > 5) {
-            throw new IllegalArgumentException("[ERROR] 코치는 최소 2명 이상 5명 이하여야 합니다.");
-        }
+    public List<Coach> getCoachGroup() {
+        return coachGroup;
+    }
+
+    public void addCategory(String category) {
+        choicesCategories.add(category);
     }
 
     @Override
@@ -32,5 +37,18 @@ public class Coaches {
     @Override
     public int hashCode() {
         return Objects.hash(coachGroup);
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        result += "[ 카테고리 | ";
+        result += String.join(" | ", choicesCategories);
+        result += "]\n";
+        result += coachGroup.stream()
+                .map(Coach::toString)
+                .collect(Collectors.joining("\n"));
+
+        return result;
     }
 }
