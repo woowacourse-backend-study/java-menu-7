@@ -5,7 +5,11 @@ import camp.nextstep.edu.missionutils.Randoms;
 public class MenuRecommender {
 
     public MenuOption choiceCategory(Coaches coaches) {
-        String category = MenuOption.getCategoryFromNumber(Randoms.pickNumberInRange(1, 5));
+        String category;
+        do {
+            category = MenuOption.getCategoryFromNumber(Randoms.pickNumberInRange(1, 5));
+        } while (!coaches.canAddCategory(category));
+
         coaches.addCategory(category);
         return MenuOption.fromCategory(category);
     }

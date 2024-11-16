@@ -51,4 +51,9 @@ public class Coaches {
 
         return result;
     }
+
+    public boolean canAddCategory(String category) {
+        int count = (int) choicesCategories.stream().filter(menu -> menu.equals(category)).count();
+        return count <= 2;
+    }
 }
