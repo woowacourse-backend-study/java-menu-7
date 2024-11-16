@@ -54,7 +54,9 @@ public class Menus {
     }
 
     public Menu getRandomMenu() {
-        return Randoms.shuffle(menus).getFirst();
+        List<String> list = menus.stream().map(menu -> menu.getMenuName()).toList();
+        String s = Randoms.shuffle(list).get(0);
+        return Menu.from(s);
     }
 
     public boolean isExists(Menu targetMenu) {

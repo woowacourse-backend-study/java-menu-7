@@ -1,22 +1,17 @@
 package menu.controller;
 
-import static menu.domain.Category.ASIAN;
-import static menu.domain.Category.CHINESE;
-import static menu.domain.Category.JAPANESE;
-import static menu.domain.Category.KOREAN;
-import static menu.domain.Category.WESTERN;
-
-import java.security.spec.RSAOtherPrimeInfo;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Supplier;
+import menu.domain.Category;
 import menu.domain.Coach;
 import menu.domain.Coaches;
 import menu.domain.Menu;
 import menu.domain.Menus;
-import menu.domain.RecommendationCategories;
 import menu.domain.RecommendationMenuGenerator;
 import menu.domain.UnEatingMenusMapper;
 import menu.view.InputView;
@@ -39,12 +34,44 @@ public class MainController {
 
         UnEatingMenusMapper unEatingMenusMapper = generateUnEatingMenusMapper(coaches);
 
-        RecommendationCategories recommendationCategories = RecommendationCategories.from();
-
         RecommendationMenuGenerator recommendationMenuGenerator = new RecommendationMenuGenerator();
         LinkedHashMap<Coach, List<Menu>> coachListLinkedHashMap = recommendationMenuGenerator.recommendationMenusGenerator(
                 coaches, unEatingMenusMapper);
-        System.out.println(coachListLinkedHashMap);
+
+        List<String> matchesCategoryNames = Category.getMatchesCategoryNames(
+                coachListLinkedHashMap.get(coaches.getCoaches().getFirst()));
+
+        outputView.printResult(
+                displayCategoryResult(matchesCategoryNames),
+                displayRecommendMenuResult(coachListLinkedHashMap)
+        );
+    }
+
+    private String displayCategoryResult(List<String> matchesCategoryNames) {
+        return String.format("[ 카테고리 | %s | %s | %s | %s | %s ]",
+                matchesCategoryNames.get(0),
+                matchesCategoryNames.get(1),
+                matchesCategoryNames.get(2),
+                matchesCategoryNames.get(3),
+                matchesCategoryNames.get(4)
+        );
+    }
+
+    private String displayRecommendMenuResult(LinkedHashMap<Coach, List<Menu>> coachListLinkedHashMap) {
+        StringBuilder builder = new StringBuilder();
+        Set<Entry<Coach, List<Menu>>> entries = coachListLinkedHashMap.entrySet();
+        for (Entry<Coach, List<Menu>> entry : entries) {
+            String formatted = String.format("[ %s | %s | %s | %s | %s | %s ]\n",
+                    entry.getKey().getName(),
+                    entry.getValue().get(0),
+                    entry.getValue().get(1),
+                    entry.getValue().get(2),
+                    entry.getValue().get(3),
+                    entry.getValue().get(4)
+            );
+            builder.append(formatted);
+        }
+        return builder.toString();
     }
 
     private Coaches getCoachNames() {
