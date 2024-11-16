@@ -18,7 +18,7 @@ public class CannotEatsFactory {
 
         Matcher coachMatcher = PATTERN.matcher(eats);
 
-        if (!coachMatcher.find() && !eats.isEmpty()) {
+        if (!coachMatcher.find()) {
             throw new IllegalArgumentException("[ERROR] 못 먹는 음식은 콤마로 구분해야 합니다.");
         }
 
