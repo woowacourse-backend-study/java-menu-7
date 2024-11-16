@@ -1,5 +1,6 @@
 package menu.domain;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,6 +51,10 @@ public class Menus {
 
     private static String[] splitInput(String input) {
         return input.split(",", -1);
+    }
+
+    public Menu getRandomMenu() {
+        return Randoms.shuffle(menus).getFirst();
     }
 
     public boolean isExists(Menu targetMenu) {

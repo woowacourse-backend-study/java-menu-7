@@ -8,12 +8,16 @@ import static menu.domain.Category.WESTERN;
 
 import java.security.spec.RSAOtherPrimeInfo;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import menu.domain.Coach;
 import menu.domain.Coaches;
 import menu.domain.Menu;
 import menu.domain.Menus;
+import menu.domain.RecommendationCategories;
+import menu.domain.RecommendationMenuGenerator;
 import menu.domain.UnEatingMenusMapper;
 import menu.view.InputView;
 import menu.view.OutputView;
@@ -34,6 +38,13 @@ public class MainController {
         Coaches coaches = doLoop(this::getCoachNames);
 
         UnEatingMenusMapper unEatingMenusMapper = generateUnEatingMenusMapper(coaches);
+
+        RecommendationCategories recommendationCategories = RecommendationCategories.from();
+
+        RecommendationMenuGenerator recommendationMenuGenerator = new RecommendationMenuGenerator();
+        LinkedHashMap<Coach, List<Menu>> coachListLinkedHashMap = recommendationMenuGenerator.recommendationMenusGenerator(
+                coaches, unEatingMenusMapper);
+        System.out.println(coachListLinkedHashMap);
     }
 
     private Coaches getCoachNames() {

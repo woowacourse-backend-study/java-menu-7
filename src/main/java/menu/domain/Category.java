@@ -1,5 +1,6 @@
 package menu.domain;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +23,18 @@ public enum Category {
         Category[] values = Category.values();
         List<Menus> list = Arrays.stream(values).map(Category::getMenus).toList();
         return list.stream().anyMatch(menus -> menus.isExists(menu));
+    }
+
+    public Menu getRandomMenu() {
+        return menus.getRandomMenu();
+    }
+
+    public static Category getRandomCategory() {
+        int randomNum = Randoms.pickNumberInRange(1, 5);
+        return Arrays.stream(Category.values())
+                .filter(category -> category.getNumber() == randomNum)
+                .findFirst()
+                .orElse(null);
     }
 
     public int getNumber() {
