@@ -1,4 +1,4 @@
-package menu.domain;
+package menu.domain.parser;
 
 import java.util.Arrays;
 import java.util.List;
