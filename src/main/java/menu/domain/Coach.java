@@ -28,8 +28,15 @@ public class Coach {
     }
 
     public boolean canAddMenu(String menuName) {
-        return pickedMenus.stream().anyMatch(category -> category.equals(menuName));
+        return !isDuplicateMenu(menuName) && !isHateFood(menuName);
+    }
 
+    private boolean isDuplicateMenu(String menuName) {
+        return pickedMenus.stream().anyMatch(category -> category.equals(menuName));
+    }
+
+    private boolean isHateFood(String menuName) {
+        return hateFoods.contains(menuName);
     }
 
     @Override
@@ -46,5 +53,14 @@ public class Coach {
     @Override
     public int hashCode() {
         return Objects.hash(name, hateFoods);
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += "[ " + name + "| ";
+        str += String.join(" | ", pickedMenus);
+        str += " ]";
+        return str;
     }
 }
