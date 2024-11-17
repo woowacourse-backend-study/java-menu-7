@@ -3,6 +3,7 @@ package menu.domain.parser;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import menu.domain.Category;
 import menu.error.ErrorMessage;
 
 public class HateFoodsParser {
@@ -19,8 +20,15 @@ public class HateFoodsParser {
 
         String[] hateFoods = hateFoodsInput.split(SEPARATOR);
         checkNumberOfFoods(hateFoods);
+        checkExistMenu(hateFoods);
 
         return Arrays.asList(hateFoods);
+    }
+
+    private static void checkExistMenu(String[] hateFoods) {
+        for (String hateFood : hateFoods) {
+            Category.isExistMenu(hateFood);
+        }
     }
 
     private static void checkNumberOfFoods(String[] hateFoods) {

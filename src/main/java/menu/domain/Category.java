@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import menu.error.ErrorMessage;
 
 public enum Category {
 
@@ -36,5 +37,12 @@ public enum Category {
                 .map(category -> Randoms.shuffle(category.menus).get(0))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public static void isExistMenu(String menuName) {
+        Arrays.stream(Category.values())
+                .filter(category -> category.menus.contains(menuName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.NOT_EXISTS_MENU.valueOf()));
     }
 }
