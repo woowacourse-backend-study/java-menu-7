@@ -4,24 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 import menu.error.ErrorMessage;
 
-public class MainParser {
+public class CoachNameParser {
 
     private static final String COACH_NAME_REGEX = "([가-힣]+)(,[가-힣]+)*";
     private static final String SEPARATOR = ",";
     private static final int MINIMUM_NUMBER_OF_COACHES = 2;
-    private static final int MAXIMUM_NUMBER_OF_COACHES = 2;
+    private static final int MAXIMUM_NUMBER_OF_COACHES = 5;
 
-    public static List<String> parseNameInput(String nameInput) {
+    public static List<String> parse(String nameInput) {
         checkDividedSeparator(nameInput);
 
         String[] names = nameInput.split(SEPARATOR);
         checkNumberOfCoaches(names);
 
         return Arrays.asList(names);
-    }
-
-    public static List<String> parseHateFoodsInput(String hateFoods) {
-        checkDividedSeparator(hateFoods);
     }
 
     private static void checkNumberOfCoaches(String[] names) {
