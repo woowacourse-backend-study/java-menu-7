@@ -1,5 +1,9 @@
 package menu.domain;
 
+import static menu.enums.RecommendResultSign.CLOSE_PARENTHESES;
+import static menu.enums.RecommendResultSign.DAY_SEPARATOR;
+import static menu.enums.RecommendResultSign.OPEN_PARENTHESES;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +32,10 @@ public class Coach {
         return hateFoods.contains(menuName);
     }
 
+    public void addMenu(String menuName) {
+        pickedMenus.add(menuName);
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -47,9 +55,9 @@ public class Coach {
     @Override
     public String toString() {
         String str = "";
-        str += "[ " + name + "| ";
-        str += String.join(" | ", pickedMenus);
-        str += " ]";
+        str += OPEN_PARENTHESES.valueOf() + name + DAY_SEPARATOR.valueOf();
+        str += String.join(DAY_SEPARATOR.valueOf(), pickedMenus);
+        str += CLOSE_PARENTHESES.valueOf();
         return str;
     }
 }

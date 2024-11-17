@@ -2,7 +2,7 @@ package menu.domain.parser;
 
 import java.util.Arrays;
 import java.util.List;
-import menu.error.ErrorMessage;
+import menu.enums.ErrorMessage;
 
 public class CoachNameParser {
 

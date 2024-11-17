@@ -1,19 +1,36 @@
 package menu.domain;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-import menu.error.ErrorMessage;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.api.Test;
 
 public class CoachTest {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"포", "빨주노초파"})
-    void 코치_이름은_2글자_이상_4글자_이하여야_한다(String name) {
-        assertThatThrownBy(() -> new Coach(name, List.of("스시")))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(ErrorMessage.INVALID_COACH_NAME_LENGTH.valueOf());
+    private static final Coach POBI = new Coach("포비", List.of("김치찌개"));
+
+    @Test
+    void 코치_생성() {
+        assertThat(POBI).isEqualTo(new Coach("포비", List.of("김치찌개")));
+    }
+
+    @Test
+    void 중복_메뉴는_추천받을_수_없다() {
+        POBI.addMenu("스시");
+
+        assertThat(POBI.canAddMenu("스시")).isFalse();
+        assertThat(POBI.canAddMenu("가츠동")).isTrue();
+    }
+
+    @Test
+    void 싫어하는_메뉴는_추천받을_수_없다() {
+        assertThat(POBI.canAddMenu("김치찌개")).isFalse();
+    }
+
+    @Test
+    void 메뉴_추천받기() {
+        POBI.addMenu("스시");
+
+        assertThat(POBI.canAddMenu("스시")).isFalse();
     }
 }

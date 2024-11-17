@@ -7,18 +7,19 @@ public enum RecommendMachine {
     public String choiceCategory(Coaches coaches, int random) {
         String categoryName;
         do {
-            categoryName = Category.getName(random);
-        } while (coaches.canAddCategory(categoryName));
+            categoryName = Category.findNameByNumber(random);
+        } while (!coaches.canAddCategory(categoryName));
 
+        coaches.addCategory(categoryName);
         return categoryName;
     }
 
-    public String choiceMenu(String categoryName, Coach coach) {
-        String menuName;
+    public void choiceMenu(String categoryName, String menuName, Coach coach) {
+        String menu;
         do {
-            menuName = Category.recommendMenu(categoryName);
-        } while (coach.canAddMenu(menuName));
+            menu = Category.recommendMenu(categoryName, menuName);
+        } while (!coach.canAddMenu(menu));
 
-        return menuName;
+        coach.addMenu(menu);
     }
 }

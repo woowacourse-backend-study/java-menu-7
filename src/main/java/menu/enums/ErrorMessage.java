@@ -1,4 +1,4 @@
-package menu.error;
+package menu.enums;
 
 public enum ErrorMessage {
 

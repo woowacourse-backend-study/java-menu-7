@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import menu.domain.Category;
-import menu.error.ErrorMessage;
+import menu.enums.ErrorMessage;
 
 public class HateFoodsParser {
 

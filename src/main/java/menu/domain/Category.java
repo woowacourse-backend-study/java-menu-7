@@ -1,10 +1,8 @@
 package menu.domain;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import menu.error.ErrorMessage;
+import menu.enums.ErrorMessage;
 
 public enum Category {
 
@@ -24,17 +22,24 @@ public enum Category {
         this.menus = menus;
     }
 
-    public static String getName(int pickedNumber) {
+    public static String findNameByNumber(int pickedNumber) {
         return Arrays.stream(Category.values())
                 .filter(category -> category.number == pickedNumber)
-                .map(category -> category.name)
-                .collect(Collectors.joining());
+                .findFirst()
+                .get().name;
     }
 
-    public static String recommendMenu(String categoryName) {
+    public static List<String> findMenusByCategory(String categoryName) {
         return Arrays.stream(Category.values())
                 .filter(category -> category.name.equals(categoryName))
-                .map(category -> Randoms.shuffle(category.menus).get(0))
+                .findFirst()
+                .get().menus;
+    }
+
+    public static String recommendMenu(String categoryName, String menuName) {
+        return Arrays.stream(Category.values())
+                .filter(category -> category.name.equals(categoryName) && category.menus.contains(menuName))
+                .map(category -> menuName)
                 .findFirst()
                 .orElse(null);
     }

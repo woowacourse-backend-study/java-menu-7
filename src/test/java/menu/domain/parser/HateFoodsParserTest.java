@@ -3,7 +3,7 @@ package menu.domain.parser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import menu.error.ErrorMessage;
+import menu.enums.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
