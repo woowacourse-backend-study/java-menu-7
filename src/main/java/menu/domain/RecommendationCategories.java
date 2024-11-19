@@ -23,12 +23,6 @@ public class RecommendationCategories {
         return matchesCategoriesCount(target) < REGISTRABLE_CATEGORY_COUNT;
     }
 
-    private int matchesCategoriesCount(Category target) {
-        return (int) recommendationCategories.stream()
-                .filter(category -> category.equals(target))
-                .count();
-    }
-
     public int getSize() {
         return recommendationCategories.size();
     }
@@ -36,6 +30,13 @@ public class RecommendationCategories {
     public List<Category> getRecommendationCategories() {
         return recommendationCategories.stream().toList();
     }
+
+    private int matchesCategoriesCount(Category target) {
+        return (int) recommendationCategories.stream()
+                .filter(category -> category.equals(target))
+                .count();
+    }
+
 
     @Override
     public String toString() {

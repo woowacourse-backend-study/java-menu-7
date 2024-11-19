@@ -13,6 +13,8 @@ import menu.domain.RecommendationCategories;
 
 public class RecommendationResultFormatter {
 
+    private RecommendationResultFormatter() {}
+
     public static String formatRecommendationResult(Coaches coaches, RecommendationCategories categories) {
         return formatCategoryResult(categories) + formatRecommendMenusResult(coaches);
     }
@@ -55,7 +57,5 @@ public class RecommendationResultFormatter {
                             .map(Menu::getMenuName)
                             .toList();
     }
-
-    private RecommendationResultFormatter() {}
 
 }

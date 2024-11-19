@@ -26,6 +26,10 @@ public class Coaches {
         return new Coaches(coaches);
     }
 
+    public List<Coach> getCoaches() {
+        return coaches;
+    }
+
     private void validate(List<Coach> coaches) {
         validateSize(coaches);
         validateDuplication(coaches);
@@ -42,10 +46,6 @@ public class Coaches {
         if (uniqueCoaches.size() != coaches.size()) {
             throw new IllegalArgumentException(INVALID_DUPLICATION_COACH.getMessage());
         }
-    }
-
-    public List<Coach> getCoaches() {
-        return coaches;
     }
 
     @Override
