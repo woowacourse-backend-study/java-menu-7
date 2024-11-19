@@ -1,21 +1,24 @@
 package menu.view;
 
+import static menu.view.enums.OutputMessage.RESULT_FOOTER;
+import static menu.view.enums.OutputMessage.RESULT_HEADER;
+import static menu.view.enums.OutputMessage.RESULT_MESSAGE;
+import static menu.view.enums.OutputMessage.START_MESSAGE;
+
 public class OutputView {
 
     public void printStartMessage() {
-        System.out.println("점심 메뉴 추천을 시작합니다.");
+        System.out.println(START_MESSAGE.getMessage());
     }
 
     public void printErrorMessage(String message) {
         System.out.println(message);
     }
 
-    public void printResult(String categoryResult, String recommendMenuResult) {
-        System.out.println("메뉴 추천 결과입니다.");
-        System.out.println("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
-        System.out.println(categoryResult);
+    public void printResult(String recommendMenuResult) {
+        System.out.println(RESULT_MESSAGE.getMessage());
+        System.out.println(RESULT_HEADER.getMessage());
         System.out.println(recommendMenuResult);
-        System.out.println("추천을 완료했습니다.");
+        System.out.println(RESULT_FOOTER.getMessage());
     }
-
 }

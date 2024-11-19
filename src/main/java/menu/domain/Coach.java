@@ -1,53 +1,71 @@
 package menu.domain;
 
+import static menu.util.enums.Delimiter.COMMA;
+
+import java.util.List;
 import java.util.Objects;
+import menu.domain.vo.Menu;
 
 public class Coach {
 
-    private String name;
+    private final CoachName coachName;
+    private final UnEatingMenus unEatingMenus;
+    private final RecommendationMenus recommendationMenus;
 
-    private Coach(String name) {
-        this.name = name;
+    public Coach(CoachName coachName, UnEatingMenus unEatingMenus, RecommendationMenus recommendationMenus) {
+        this.coachName = coachName;
+        this.unEatingMenus = unEatingMenus;
+        this.recommendationMenus = recommendationMenus;
     }
 
     public static Coach from(String input) {
-        String stripped = input.strip();
-        validate(stripped);
-        return new Coach(stripped);
+        return new Coach(
+                CoachName.from(input),
+                UnEatingMenus.create(),
+                RecommendationMenus.create()
+        );
     }
 
-    private static void validate(String input) {
-        validateNameLength(input);
-    }
-
-    private static void validateNameLength(String input) {
-        if (input.length() < 2 || input.length() > 4) {
-            throw new IllegalArgumentException("[ERROR] 코치명은 최소 2글자 이상, 최대 4글자 이하 입력해야 합니다.");
+    public void registerUnEatingMenus(String input) {
+        String[] split = input.strip().split(COMMA.getDelimiter(), -1);
+        for (String inputMenu : split) {
+            unEatingMenus.addUnEatingMenu(Menu.from(inputMenu));
         }
     }
 
-    public String getName() {
-        return name;
+    public void registerRecommendationMenu(Menu menu) {
+        recommendationMenus.addRecommendationMenus(menu);
+    }
+
+    public boolean checkRecommended(Menu menu) {
+        return !unEatingMenus.isContain(menu) && !recommendationMenus.isDuplicate(menu);
+    }
+
+    public String getCoachName() {
+        return coachName.getCoachName();
+    }
+
+
+    public List<Menu> getRecommendationMenus() {
+        return recommendationMenus.getRecommendationMenus();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Coach coach)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return Objects.equals(name, coach.name);
+        Coach coach = (Coach) o;
+        return Objects.equals(coachName, coach.coachName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hashCode(coachName);
     }
 
     @Override
     public String toString() {
-        return name;
+        return coachName.toString();
     }
 }

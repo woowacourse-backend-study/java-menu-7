@@ -1,10 +1,17 @@
 package menu.domain;
 
+import static menu.util.enums.Delimiter.COMMA;
+import static menu.util.enums.ErrorMessage.INVALID_COACHES_COUNT;
+import static menu.util.enums.ErrorMessage.INVALID_DUPLICATION_COACH;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
 public class Coaches {
+
+    private static final int MIN_SIZE = 2;
+    private static final int MAX_SIZE = 5;
 
     private final List<Coach> coaches;
 
@@ -14,7 +21,7 @@ public class Coaches {
     }
 
     public static Coaches from(String input) {
-        String[] split = input.split(",", -1);
+        String[] split = input.split(COMMA.getDelimiter(), -1);
         List<Coach> coaches = Arrays.stream(split).map(Coach::from).toList();
         return new Coaches(coaches);
     }
@@ -25,15 +32,15 @@ public class Coaches {
     }
 
     private void validateSize(List<Coach> coaches) {
-        if (coaches.size() < 2 || coaches.size() > 5) {
-            throw new IllegalArgumentException("[ERROR] 코치는 최소 2명 이상, 최대 5명 이하 입력해야 합니다.");
+        if (coaches.size() < MIN_SIZE || coaches.size() > MAX_SIZE) {
+            throw new IllegalArgumentException(INVALID_COACHES_COUNT.getMessage());
         }
     }
 
     private void validateDuplication(List<Coach> coaches) {
         HashSet<Coach> uniqueCoaches = new HashSet<>(coaches);
         if (uniqueCoaches.size() != coaches.size()) {
-            throw new IllegalArgumentException("[ERROR] 중복된 코치명을 입력할 수 없습니다.");
+            throw new IllegalArgumentException(INVALID_DUPLICATION_COACH.getMessage());
         }
     }
 
@@ -47,4 +54,5 @@ public class Coaches {
                 "coaches=" + coaches +
                 '}';
     }
+
 }

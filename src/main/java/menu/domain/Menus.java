@@ -1,8 +1,11 @@
 package menu.domain;
 
+import static menu.util.enums.Delimiter.COMMA;
+
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.Arrays;
 import java.util.List;
+import menu.domain.vo.Menu;
 
 public class Menus {
 
@@ -19,38 +22,8 @@ public class Menus {
         return new Menus(menus);
     }
 
-    public static Menus createUnEatingMenusFrom(String input) {
-        if(input.isEmpty()) {
-            return null;
-        }
-        List<Menu> menus = Arrays.stream(splitInput(input))
-                .map(Menu::from)
-                .toList();
-        validateUnEatingMenus(menus);
-        return new Menus(menus);
-    }
-
-    private static void validateUnEatingMenus(List<Menu> menus) {
-        validateUnExistsMenu(menus);
-        validateUnExistsSize(menus);
-    }
-
-    private static void validateUnExistsMenu(List<Menu> menus) {
-        for (Menu menu : menus) {
-            if (!Category.isExistsMenu(menu)) {
-                throw new IllegalArgumentException("[ERROR] 입력하신 메뉴를 전체 메뉴 목록에서 찾을 수 없습니다.");
-            };
-        }
-    }
-
-    private static void validateUnExistsSize(List<Menu> menus) {
-        if (  menus.size() > 2 ) {
-            throw new IllegalArgumentException("[ERROR] 못 먹는 메뉴는 최대 2개까지 입력 가능합니다.");
-        }
-    }
-
     private static String[] splitInput(String input) {
-        return input.split(",", -1);
+        return input.split(COMMA.getDelimiter(), -1);
     }
 
     public Menu getRandomMenu() {
